@@ -132,14 +132,14 @@ def create_test_data(folder):
     print_text('Loading done.')
 
     np.save(os.path.join(folder, 'tl_test.npy'), imgs)
-    np.save(os.path.join(folder, 'tl_id_test.npy'), imgs_id)
+    np.save(os.path.join(folder, 'tl_mask_test.npy'), imgs_id)
 
     print_text('Saving to .npy files done.')
 
 
 def load_test_data(folder):
     imgs_test = np.load(os.path.join(folder, 'tl_test.npy'))
-    imgs_mask_test = np.load(os.path.join(folder, 'tl_id_test.npy'))
+    imgs_mask_test = np.load(os.path.join(folder, 'tl_mask_test.npy'))
     return imgs_test, imgs_mask_test
 
 

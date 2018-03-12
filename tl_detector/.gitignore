@@ -1,2 +1,5 @@
 temp/
 apply_mask.py
+*.npy
+sim/*.h5
+carla/*.h5

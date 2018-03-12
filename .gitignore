@@ -2,3 +2,4 @@ traffic_light_bag_files/
 .DS_Store
 .idea/
 tl_classifier/
+*.npy
