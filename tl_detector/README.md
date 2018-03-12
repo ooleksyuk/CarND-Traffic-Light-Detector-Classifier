@@ -118,3 +118,25 @@ Models are being saved into `carla` and `sim` folders respectively. For future u
 tl_detector_carla.h5
 tl_detector_sim.h5
 ```
+
+## Predicted images examples
+
+### Carla
+![Carla Green Test Image](./carla/data/test/green/just_traffic_light_0001.jpg)
+![Carla Green Predicted Image](./preds/carla/data/test/green/just_traffic_light_0001.pred.png)
+
+![Carla Red Test Image](./carla/data/test/red/just_traffic_light_0153.jpg)
+![Carla Red Predicted Image](./preds/carla/data/test/red/just_traffic_light_0153.pred.png)
+
+![Carla Yellow Test Image](./carla/data/test/yellow/just_traffic_light_0700.jpg)
+![Carla Yellow Predicted Image](./preds/carla/data/test/yellow/just_traffic_light_0700.pred.png)
+
+### Simulator
+![Simulator Green Test Image](./sim/data/test/green/1510506838938811063_8540_2.jpg)
+![Simulator Green Predicted Image](./preds/sim/data/test/green/1510506838938811063_8540_2.pred.png)
+
+![Simulator Red Test Image](./sim/data/test/red/session1_6.jpg)
+![Simulator Red Predicted Image](./preds/sim/data/test/red/session1_6.pred.png)
+
+![Simulator Yellow Test Image](./sim/data/test/yellow/left0800.jpg)
+![Simulator Yellow Predicted Image](./preds/sim/data/test/yellow/left0800.pred.png)
