@@ -132,24 +132,24 @@ tl_detector_sim.h5
 ## Predicted images examples
 
 ### Carla
-![Carla Green Test Image](./carla/data/test/green/just_traffic_light_0001.jpg)
-![Carla Green Predicted Image](./preds/carla/data/test/green/just_traffic_light_0001.pred.png)
+![Carla Green Test Image](./tl_detector/carla/data/test/green/just_traffic_light_0001.jpg)
+![Carla Green Predicted Image](./tl_detector/preds/carla/data/test/green/just_traffic_light_0001.pred.png)
 
-![Carla Red Test Image](./carla/data/test/red/just_traffic_light_0153.jpg)
-![Carla Red Predicted Image](./preds/carla/data/test/red/just_traffic_light_0153.pred.png)
+![Carla Red Test Image](./tl_detector/carla/data/test/red/just_traffic_light_0153.jpg)
+![Carla Red Predicted Image](./tl_detector/preds/carla/data/test/red/just_traffic_light_0153.pred.png)
 
-![Carla Yellow Test Image](./carla/data/test/yellow/just_traffic_light_0700.jpg)
-![Carla Yellow Predicted Image](./preds/carla/data/test/yellow/just_traffic_light_0700.pred.png)
+![Carla Yellow Test Image](./tl_detector/carla/data/test/yellow/just_traffic_light_0700.jpg)
+![Carla Yellow Predicted Image](./tl_detector/preds/carla/data/test/yellow/just_traffic_light_0700.pred.png)
 
 ### Simulator
-![Simulator Green Test Image](./sim/data/test/green/1510506838938811063_8540_2.jpg)
-![Simulator Green Predicted Image](./preds/sim/data/test/green/1510506838938811063_8540_2.pred.png)
+![Simulator Green Test Image](./tl_detector/sim/data/test/green/1510506838938811063_8540_2.jpg)
+![Simulator Green Predicted Image](./tl_detector/preds/sim/data/test/green/1510506838938811063_8540_2.pred.png)
 
-![Simulator Red Test Image](./sim/data/test/red/session1_6.jpg)
-![Simulator Red Predicted Image](./preds/sim/data/test/red/session1_6.pred.png)
+![Simulator Red Test Image](./tl_detector/sim/data/test/red/session1_6.jpg)
+![Simulator Red Predicted Image](./tl_detector/preds/sim/data/test/red/session1_6.pred.png)
 
-![Simulator Yellow Test Image](./sim/data/test/yellow/left0800.jpg)
-![Simulator Yellow Predicted Image](./preds/sim/data/test/yellow/left0800.pred.png)
+![Simulator Yellow Test Image](./sim/tl_detector/data/test/yellow/left0800.jpg)
+![Simulator Yellow Predicted Image](./tl_detector/preds/sim/data/test/yellow/left0800.pred.png)
 
 
 ## Traffic light Classifier
@@ -212,6 +212,6 @@ shuffle=True
 For Simulator I has more data and used `batch_size=128` vs data from Carla was insufficient and I had to improve training by increasing batch side to 256 `batch_size=256`
 
 Here is an example of light color prediction for Carla and Simulator:
-![Carla](./red_carla.png)
+![Carla](./tl_classifier/red_carla.png)
 
-![Simulator](./green_sim.png)
+![Simulator](./tl_classifier/green_sim.png)
