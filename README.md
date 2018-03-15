@@ -209,7 +209,7 @@ epochs=30,
 validation_split=0.1, 
 shuffle=True
 ```
-For Simulator I has more data and used `batch_size=128` vs data from Carla was insufficient and I had to improve training by increasing batch side to 256 `batch_size=256`
+For Simulator I had more data samples and used `batch_size=128` as for Carla was I had to increase `batch_size=256` to predictions.
 
 Here is an example of light color prediction for Carla and Simulator:
 ![Carla](./tl_classifier/red_carla.png)
