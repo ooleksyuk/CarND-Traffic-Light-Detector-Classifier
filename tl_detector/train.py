@@ -8,9 +8,10 @@ from keras.callbacks import ModelCheckpoint
 
 from helper import print_text
 from image_preprocessor import load_train_data, load_test_data
-from model import pre_process, get_unet
+from model import pre_process, unet_model
 
 PREDS_DIR = 'preds'
+MODEL_DIR = 'models'
 
 
 def train_and_predict(parent_folder):
@@ -30,14 +31,22 @@ def train_and_predict(parent_folder):
     imgs_mask_train /= 255.  # scale masks to [0, 1]
 
     print_text('Creating and compiling model.')
-    model = get_unet(parent_folder)
-    model_checkpoint = ModelCheckpoint('tl_weights.h5', monitor='val_loss', save_best_only=True)
+    model = unet_model(parent_folder)
+    file_model_name = 'tl_model_detector_' + str(parent_folder) + '.json'
+    file_weights_name = 'tl_weights_detector_' + str(parent_folder) + '.h5'
+    model_checkpoint = ModelCheckpoint(os.path.join(MODEL_DIR, file_weights_name), monitor='val_loss',
+                                       save_best_only=True, save_weights_only=True, verbose=1)
+
+    # serialize model to JSON
+    model_json = model.to_json()
+    with open(os.path.join(MODEL_DIR, file_model_name), "w") as json_file:
+        json_file.write(model_json)
+    print_text('Saved model to disk')
 
     print_text('Fitting model.')
 
     model.fit(imgs_train, imgs_mask_train, batch_size=16, epochs=30, verbose=1, shuffle=True,
-              validation_split=0.2,
-              callbacks=[model_checkpoint])
+              validation_split=0.2, callbacks=[model_checkpoint])
 
     print_text('Loading and pre-processing test data.')
     imgs_test, test_image_names = load_test_data(parent_folder)
@@ -49,7 +58,7 @@ def train_and_predict(parent_folder):
         imgs_test /= std
 
     print_text('Loading saved weights.')
-    model.load_weights(os.path.join(parent_folder, 'tl_weights.h5'))
+    model.load_weights(os.path.join(MODEL_DIR, file_weights_name))
 
     print_text('Predicting masks on test data.')
     predicted_image_masks = model.predict(imgs_test, verbose=1)

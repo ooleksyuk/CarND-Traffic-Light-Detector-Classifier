@@ -19,6 +19,8 @@ KERNEL_SIZE = (3, 3)
 STRIDES = (2, 2)
 LEARN_RATE = 1e-5
 
+MODEL_DIR = 'models'
+
 
 def dice_coef(y_true, y_pred):
     return (2. * K.sum(K.flatten(y_true) * K.flatten(y_pred)) + SMOOTH) / (K.sum(y_true) + K.sum(y_pred) + SMOOTH)
@@ -28,7 +30,7 @@ def dice_coef_loss(y_true, y_pred):
     return -dice_coef(y_true, y_pred)
 
 
-def get_unet(parent_folder):
+def unet_model(parent_folder):
     inputs = Input((IMAGE_ROWS, IMAGE_COLS, 1))
     conv1 = Conv2D(filters=32, kernel_size=KERNEL_SIZE, activation=ACTIVATION, padding=PADDING, trainable=True)(inputs)
     conv1 = Conv2D(filters=32, kernel_size=KERNEL_SIZE, activation=ACTIVATION, padding=PADDING, name='conv_1_2',
@@ -93,7 +95,7 @@ def get_unet(parent_folder):
     conv10 = Conv2D(1, (1, 1), activation='sigmoid')(conv9)
 
     model = Model(inputs=[inputs], outputs=[conv10])
-    model.load_weights(os.path.join(parent_folder, 'weights.h5'), by_name=True)
+    model.load_weights(os.path.join(MODEL_DIR, 'weights.h5'), by_name=True)
     model.compile(optimizer=Adam(lr=LEARN_RATE), loss=dice_coef_loss, metrics=[dice_coef])
 
     model.summary()

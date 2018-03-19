@@ -5,17 +5,18 @@ import argparse
 from skimage.io import imsave
 from helper import print_text
 from image_preprocessor import load_test_data
-from model import pre_process, get_unet
+from model import pre_process, unet_model
 
 MISS = 100
 IMAGE_ROWS = 600
 IMAGE_COLS = 800
 PRED_DIR = 'preds'
+MODEL_DIR = 'models'
 
 
 def predict(parent_folder):
     print_text('Loading and pre-processing test data.')
-    model = get_unet(parent_folder)
+    model = unet_model(parent_folder)
 
     test_images, test_image_names = load_test_data(parent_folder)
     test_images = pre_process(test_images)
@@ -29,11 +30,16 @@ def predict(parent_folder):
         test_images /= std
 
     print_text('Loading saved weights.')
-    if parent_folder == 'carla':
-        model_name = 'tl_detector_carla.h5'
-    else:
-        model_name = 'tl_detector_sim.h5'
-    model.load_weights(model_name)
+    model_json_name = 'tl_model_detector_' + str(parent_folder) + '.json'
+    model_name = 'tl_weights_detector_' + str(parent_folder) + '.h5'
+    print_text(model_json_name)
+    model.load_weights(os.path.join(MODEL_DIR, model_name))
+
+    # serialize model to JSON
+    model_json = model.to_json()
+    with open(os.path.join(MODEL_DIR, model_json_name), "w") as json_file:
+        json_file.write(model_json)
+    print_text('Saved model to disk')
 
     print_text('Predicting masks on test data.')
     predicted_image_masks = model.predict(test_images, verbose=1)
