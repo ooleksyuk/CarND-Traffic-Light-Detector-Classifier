@@ -23,7 +23,12 @@ MODEL_DIR = 'models'
 
 
 def dice_coef(y_true, y_pred):
-    return (2. * K.sum(K.flatten(y_true) * K.flatten(y_pred)) + SMOOTH) / (K.sum(y_true) + K.sum(y_pred) + SMOOTH)
+    # y_pred is softmax output of shape (num_samples, num_classes)
+    # y_true is one hot encoding of target (shape= (num_samples, num_classes))
+    y_true_f = K.flatten(y_true)
+    y_pred_f = K.flatten(y_pred)
+    intersection = K.sum(y_true_f * y_pred_f)
+    return (2. * intersection + SMOOTH) / (K.sum(y_true_f) + K.sum(y_pred_f) + SMOOTH)
 
 
 def dice_coef_loss(y_true, y_pred):
