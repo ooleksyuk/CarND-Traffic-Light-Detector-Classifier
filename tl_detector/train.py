@@ -4,7 +4,7 @@ import os
 
 from skimage.io import imsave
 
-from keras.callbacks import ModelCheckpoint
+from keras.callbacks import ModelCheckpoint, TensorBoard
 
 from helper import print_text
 from image_preprocessor import load_train_data, load_test_data
@@ -30,6 +30,8 @@ def train_and_predict(parent_folder):
     imgs_mask_train = imgs_mask_train.astype('float32')
     imgs_mask_train /= 255.  # scale masks to [0, 1]
 
+    tf_board = TensorBoard(log_dir='./Graph', histogram_freq=0, write_graph=True, write_images=True)
+
     print_text('Creating and compiling model.')
     model = unet_model(parent_folder)
     file_model_name = 'tl_model_detector_' + str(parent_folder) + '.json'
@@ -45,8 +47,8 @@ def train_and_predict(parent_folder):
 
     print_text('Fitting model.')
 
-    model.fit(imgs_train, imgs_mask_train, batch_size=16, epochs=30, verbose=1, shuffle=True,
-              validation_split=0.2, callbacks=[model_checkpoint])
+    model.fit(imgs_train, imgs_mask_train, batch_size=16, epochs=100, verbose=1, shuffle=True,
+              validation_split=0.2, callbacks=[model_checkpoint, tf_board])
 
     print_text('Loading and pre-processing test data.')
     imgs_test, test_image_names = load_test_data(parent_folder)
