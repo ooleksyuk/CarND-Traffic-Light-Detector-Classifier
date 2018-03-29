@@ -47,7 +47,7 @@ def train_and_predict(parent_folder):
 
     print_text('Fitting model.')
 
-    model.fit(imgs_train, imgs_mask_train, batch_size=16, epochs=100, verbose=1, shuffle=True,
+    model.fit(imgs_train, imgs_mask_train, batch_size=16, epochs=130, verbose=1, shuffle=True,
               validation_split=0.2, callbacks=[model_checkpoint, tf_board])
 
     print_text('Loading and pre-processing test data.')
